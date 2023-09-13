@@ -9,7 +9,9 @@
                 {{ $post->content }}
 
                 <div class="flex justify-end">
-                    <a href="{{ route('posts.edit', $post) }}" class="px-4 py-2 bg-blue-300 mr-4">Update</a>
+                    @can('update', $post)
+                        <a href="{{ route('posts.edit', $post) }}" class="px-4 py-2 bg-blue-300 mr-4">Update</a>
+                    @endcan
                     <a href="{{ route('posts.index') }}" class="px-4 py-2 bg-gray-100">Back to Post List</a>
                 </div>
             </div>
