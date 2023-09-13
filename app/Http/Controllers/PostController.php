@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -31,7 +31,14 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create([
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        session()->flash('message', 'Post created');
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**
@@ -39,7 +46,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -47,7 +54,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -55,7 +62,13 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update([
+            'content' => $request->content,
+        ]);
+
+        session()->flash('message', 'Post updated');
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**
