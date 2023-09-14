@@ -12,13 +12,15 @@ class PostController extends Controller
     {
         $this->authorizeResource(Post::class);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = Post::with([
+            'user' => fn($query) => $query->whereNotNull('email_verified_at')
+        ])->paginate(1000);
 
         return response()->view('posts.index', compact('posts'));
     }

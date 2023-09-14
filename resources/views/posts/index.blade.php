@@ -9,7 +9,7 @@
                 {{ $posts->links() }}
 
                 @foreach ($posts as $post)
-                    <li class="my-2">{{ $post->content }}</li>
+                    <li class="my-2">{{ $post->user->name }} - {{ $post->content }}</li>
                 @endforeach
 
                 {{ $posts->links() }}
